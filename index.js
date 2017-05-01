@@ -383,10 +383,10 @@ ZipFile.prototype.readEntry = function() {
       }
 
       // validate file name
-      entry.filename = entry.filename.replace(/\\/g, '/');
-      //if (entry.fileName.indexOf("\\") !== -1) {
-      //  return emitErrorAndAutoClose(self, new Error("invalid characters in fileName: " + entry.fileName));
-      //}
+      entry.fileName = entry.fileName.replace(/\\/g, '/');
+      if (entry.fileName.indexOf("\\") !== -1) {
+        return emitErrorAndAutoClose(self, new Error("invalid characters in fileName: " + entry.fileName));
+      }
       if (/^[a-zA-Z]:/.test(entry.fileName) || /^\//.test(entry.fileName)) {
         return emitErrorAndAutoClose(self, new Error("absolute path: " + entry.fileName));
       }
